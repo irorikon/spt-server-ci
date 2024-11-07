@@ -1,0 +1,15 @@
+FROM node:20.11.1-alpine AS builder
+RUN apk add --no-cache git git-lfs && \
+    git clone https://dev.sp-tarkov.com/SPT/Server -b 3.10.0-DEV spt-server && \
+    cd spt-server && git lfs pull && \
+    cd project && \
+    sed -i 's/SPT.Server.exe/SPT.Server/g' ./gulpfile.mjs && \
+    npm install && \
+    npm run build:release && \
+    ls -l build/
+
+FROM debian:bookworm-slim
+COPY --from=builder /spt-server/project/build/ /spt-server/
+WORKDIR /spt-server
+EXPOSE 6969
+CMD ["./SPT.Server"]
