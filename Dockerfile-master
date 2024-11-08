@@ -5,11 +5,13 @@ RUN apk add --no-cache git git-lfs && \
     cd project && \
     sed -i 's/SPT.Server.exe/SPT.Server/g' ./gulpfile.mjs && \
     npm install && \
-    npm run build:release && \
-    ls -l build/
+    npm run build:release
 
 FROM debian:bookworm-slim
-COPY --from=builder /spt-server/project/build/ /spt-server/
+COPY --from=builder /spt-server/project/build/ /app/spt-server/
+ENV TZ=Asia/Shanghai
 WORKDIR /spt-server
 EXPOSE 6969
-CMD ["./SPT.Server"]
+COPY ./entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
