@@ -54,9 +54,9 @@ jobs:
         uses: docker/build-push-action@v4.0.0
         with:
           context: ./
-          file: ./Dockerfile
+          file: ./Dockerfile-master
           platforms: linux/amd64,linux/arm64
           tags: |
             irorikon/spt-server:latest
-            irorikon/spt-server:${{ needs.prepare.outputs.SPT_VERSION }}
+            irorikon/spt-server:${{needs.prepare.outputs.SPT_VERSION}}
           push: true
