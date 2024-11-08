@@ -22,7 +22,7 @@ jobs:
 
     steps:
       - name: Extract version
-        id: version
+        id: versions
         run: |
           wget ${{ env.SERVER_URL }}/${{ env.REPOSITORY_SPT_SERVER }}/raw/branch/${{ env.NIGHTLY_BRANCH }}/project/assets/configs/core.json
 
