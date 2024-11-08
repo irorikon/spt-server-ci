@@ -1,4 +1,4 @@
-name: SPT-Server Build Nightly
+name: SPT-Server Build Master
 
 on:
   schedule:
@@ -32,12 +32,9 @@ jobs:
           wget ${{ env.SERVER_URL }}/${{ env.REPOSITORY_SPT_SERVER }}/raw/branch/${{ env.NIGHTLY_BRANCH }}/project/assets/configs/core.json
 
           SPT_VERSION=$(jq -r '.sptVersion' core.json)
-          EFT_VERSION=$(jq -r '.compatibleTarkovVersion' core.json)
 
           echo "👽 SPT_VERSION = $SPT_VERSION"
-          echo "👽 EFT_VERSION = $EFT_VERSION"
           echo "SPT_VERSION=$SPT_VERSION" >> $GITHUB_OUTPUT
-          echo "EFT_VERSION=$EFT_VERSION" >> $GITHUB_OUTPUT
 
   build-server:
     needs: prepare
