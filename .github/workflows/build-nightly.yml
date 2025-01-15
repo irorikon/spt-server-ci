@@ -8,9 +8,8 @@ on:
       - '.github/workflows/build-nightly.yml'
 
 env:
-  SERVER_URL: https://dev.sp-tarkov.com
-  REPOSITORY_SPT_SERVER: SPT/Server
-  NIGHTLY_BRANCH: 3.10.0-DEV
+  SERVER_SRC_URL: https://raw.githubusercontent.com/sp-tarkov/server
+  BRANCH: 3.10.5-DEV
 
 jobs:
   prepare:
@@ -18,13 +17,12 @@ jobs:
 
     outputs:
       SPT_VERSION: ${{ steps.versions.outputs.SPT_VERSION }}
-      EFT_VERSION: ${{ steps.versions.outputs.EFT_VERSION }}
 
     steps:
       - name: Extract version
         id: versions
         run: |
-          wget ${{ env.SERVER_URL }}/${{ env.REPOSITORY_SPT_SERVER }}/raw/branch/${{ env.NIGHTLY_BRANCH }}/project/assets/configs/core.json
+          wget ${{ env.SERVER_SRC_URL }}/raw/branch/${{ env.BRANCH }}/project/assets/configs/core.json
 
           SPT_VERSION=$(jq -r '.sptVersion' core.json)
 

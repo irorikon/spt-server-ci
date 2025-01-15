@@ -1,6 +1,6 @@
 FROM node:20.11.1-alpine AS builder
 RUN apk add --no-cache git git-lfs && \
-    git clone https://dev.sp-tarkov.com/SPT/Server spt-server && \
+    git clone https://github.com/sp-tarkov/server spt-server && \
     cd spt-server && git lfs pull && \
     cd project && \
     sed -i 's/SPT.Server.exe/SPT.Server/g' ./gulpfile.mjs && \
