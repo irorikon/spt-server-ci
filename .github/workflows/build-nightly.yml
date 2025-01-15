@@ -22,7 +22,7 @@ jobs:
       - name: Extract version
         id: versions
         run: |
-          wget ${{ env.SERVER_SRC_URL }}/raw/branch/${{ env.BRANCH }}/project/assets/configs/core.json
+          wget  ${{ env.SERVER_SRC_URL }}/refs/heads/${{ env.BRANCH }}/project/assets/configs/core.json
 
           SPT_VERSION=$(jq -r '.sptVersion' core.json)
 
